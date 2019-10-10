@@ -1,0 +1,101 @@
+COMP40 HOMEWORK 3: Locality
+PARTNERS: Jack Chau (nchau01) and & Jake Owen (jowen03)
+
+ACNKNOWLEDGEMENTS:
+        James Cameron (A true hero)
+        Jared Hwang (Another true hero)
+
+IMPLIMENTATION FAULTS:
+        We believe our implimentation handles all cases well. One issue with 
+        our implimentation is that we created a global variable for the 
+        A2_methods object because we saw you guys did it in a file. 
+        We made sure to only set A2_methods once so in a way, 
+        it was like a global constant. 
+        
+        Obviously, the use of global variables is not ideal but this was 
+        a solution we thought would work. In the future, we would find 
+        a way around this issue.
+
+
+IMPLIMENTATION ARCHITECTURE:
+        Our solution uses UArray2s and UArray2bs. The UArray2bs are UArray2s 
+        with UArrays inside of them to represent blocks. Our rotations 
+        were done by using the map functions implimented in UArray2 
+        and UArray2b. 
+
+
+PART E - MEASURED PERFORMANCE:
+
+Size of images: 
+
+from-wind-cave.jpg - 816x458 total: 373728
+flowers.jpg - 816x458 total: 373728
+
+Total CPU Time:
+
+row-major 0: 22049952 nanoseconds
+row-major 90: 36625344 nanoseconds
+row-major 180: 26908416 nanoseconds
+
+col-major 0: 43352448 nanoseconds
+col-major 90: 28150784 nanoseconds
+col-major 180: 44473632 nanoseconds
+
+block-major 0: 46342272 nanoseconds
+block-major 90: 47089728 nanoseconds
+block-major 180: 48210912 nanoseconds
+
+
+Time per input pixel per image: 
+
+row-major 0: 59 nanoseconds
+row-major 90: 98 nanoseconds
+row-major 180: 72 nanoseconds
+
+col-major 0: 116 nanoseconds
+col-major 90: 78 nanoseconds
+col-major 180: 119 nanoseconds
+
+block-major 0: 124 nanoseconds
+block-major 90: 126 nanoseconds
+block-major 180: 129 nanoseconds
+
+Instructions per input pixel rotated (assuming 1 bil instructions per second)
+
+row-major 0: 122049952 instructions
+row-major 90: 36625344 instructions
+row-major 180: 26908416 instructions
+
+col-major 0: 43352448 instructions
+col-major 90: 28150784 instructions
+col-major 180: 44473632 instructions
+
+block-major 0: 46342272 instructions
+block-major 90: 47089728 instructions
+block-major 180: 48210912 instructions
+
+
+Name Of Comp, CPU Type, Clock Rate: Intel(R) Core(TM) i7-7700T CPU @ 2.90GHz
+
+Model: 158
+
+EXPLAINATION OF RESULTS:
+Our results were similar to what were expecting for row major and column 
+major. We believed that for 0 and 180 degree rotations, row would perform 
+better than column because of how the caches operated. 
+We predcted that for 90 degrees, row and column would be similar because one 
+transferred from row->col while the other transferred elements from col->row. 
+We though thatblocked major would perform better than every other method, 
+but we were wrong. We think this is because of our implimentation. 
+Our implimentation for UArray2b features a series of overlapping layers 
+and nested forloops. 
+These features caused the blocked major rotations to run far slower. 
+
+
+HOURS:
+        Planning / Part D: 8 Hours
+        Part A: 12 Hours
+        Part B: 2 Hours
+        Part C: 20 Hours
+        Part E: 2 Hours
+
